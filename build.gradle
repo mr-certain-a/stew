@@ -1,0 +1,54 @@
+plugins {
+	id 'eclipse-wtp'
+	id 'war'
+	id 'org.springframework.boot' version '2.1.0.RELEASE'
+} 
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+def defaultEncoding = 'UTF-8'
+tasks.withType(AbstractCompile).each { it.options.encoding = defaultEncoding }
+tasks.withType(GroovyCompile).each { it.groovyOptions.encoding = defaultEncoding }
+
+repositories {
+	maven {
+		credentials {
+			username dependencyMavenUser
+			password dependencyMavenPass
+		}
+		url dependencyMavenUrl
+	}
+	mavenCentral()
+	maven {
+		  url  "http://repository.jboss.org/nexus/content/groups/public-jboss"  // JBoss
+		  url  "http://repository.apache.org/content/groups/public"             // Apache
+		  url  "http://repository.springsource.com/maven/bundles/release"       // SpringSource
+		  url  "http://repository.codehaus.org"                                 // Codehaus
+		  url  "http://download.java.net/maven/2"                               // Java.NET
+		  url  "http://download.java.net/maven/glassfish"                       // Glassfish
+		  url  "http://maven.seasar.org/maven2"                                 // Seasar
+		  url  "http://m2repo.spockframework.org/snapshots"                     // Spock
+		  url  "http://bluepapa32.github.com/maven"								// github
+		  url  'https://oss.sonatype.org/content/groups/public'					// sonatype
+		  url  "https://plugins.gradle.org/m2/"
+	}
+}
+
+
+dependencies {
+    def springBootVersion="2.1.0.RELEASE"
+ 
+	implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    
+    testImplementation 'junit:junit:4.+'
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+}
+
