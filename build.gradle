@@ -37,22 +37,31 @@ repositories {
 
 
 dependencies {
-    def springBootVersion="2.1.0.RELEASE"
+    def springBootVersion="2.1.1.RELEASE"
  
 	implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
 		exclude module: "spring-boot-starter-tomcat"
 	}
     compileOnly "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
 
-    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-jooq:${springBootVersion}"
+    
+    implementation 'com.h2database:h2:1.4.197'
+    
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'ch.qos.logback:logback-classic:1.2.3' 
+   
+    compileOnly 'org.projectlombok:lombok:latest.release'
     
     testImplementation 'junit:junit:4.+'
 	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	testImplementation 'org.mockito:mockito-all:1.10.19'
+    testImplementation 'org.projectlombok:lombok:latest.release'
 	
 	testRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
 }
-
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.7'
