@@ -12,7 +12,7 @@ public class MainController {
 
     @GetMapping("/hello")
     public String hello(Model model) {
-        model.addAttribute("message", "HELLO, IN STEW IN HODGEPODGE");
+        model.addAttribute("message", "HELLO, IN STEW IN HODGEPODGE REMOTE XI2");
         return "hello";
     }
     

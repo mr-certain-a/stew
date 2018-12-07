@@ -4,6 +4,14 @@ plugins {
 	id 'org.springframework.boot' version '2.1.0.RELEASE'
 } 
 
+version '0.1-SNAPSHOT'
+
+def myFlavors = [
+    flavor1: [packageName: "com.example.flavor1"],
+    flavor2: [packageName: "com.example.flavor2"],
+]
+
+
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -35,13 +43,12 @@ repositories {
 	}
 }
 
-
+def springBootVersion="2.1.1.RELEASE"
 dependencies {
-    def springBootVersion="2.1.1.RELEASE"
- 
 	implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
 		exclude module: "spring-boot-starter-tomcat"
 	}
+		
     compileOnly "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
 
     implementation "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
@@ -67,3 +74,12 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.7'
 }
 
+task tomcat_embed {
+	if(project.hasProperty('embed')) {
+		println 'the create war, tomcat-embed version...'
+		dependencies {
+	    	compile "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+		}
+		version += "-tomcat-embed"
+	}
+}
